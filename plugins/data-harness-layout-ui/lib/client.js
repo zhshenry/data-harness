@@ -106,8 +106,10 @@ window.__ModuleLoader__.load({
 					'[class*="headlineText"] { font-size: 0; }',
 					'[class*="headlineText"]::before { content: "Data Agent"; font-size: 26px; line-height: 32px; font-weight: 500; }',
 					'[class*="previewBadge"] { font-size: 0; }',
-					'[class*="previewBadge"]::before { content: "Harness"; font-size: 12px; line-height: 18px; font-weight: 500; font-family: var(--ds-font-family-code); }',
-					'[class$="_headline"]::after { content: "问数、图标、分析，一句话的事"; grid-column: 1 / -1; font-size: 14px; line-height: 20px; font-weight: 400; color: var(--dsw-alias-label-secondary); text-align: center; margin-top: 6px; }'
+					'[class*="previewBadge"]::before { content: "Harness"; font-size: 12px; line-height: 18px; font-weight: 700; font-family: var(--ds-font-family-code); position: relative; top: 1px; }',
+					'[class$="_headline"] svg { width: 26px; height: 26px; }',
+					'[class$="_fishHitbox"] { transform: translateY(-2px); }',
+					'[class$="_headline"]::after { content: "问数、图表、分析，一句话的事"; grid-column: 1 / -1; font-size: 16px; line-height: 22px; font-weight: 400; color: var(--dsw-alias-label-secondary); text-align: center; margin-top: 6px; }'
 				].join("\n");
 				document.head.appendChild(style);
 				return () => style.remove();
