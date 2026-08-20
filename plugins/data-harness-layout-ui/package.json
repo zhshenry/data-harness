@@ -1,7 +1,7 @@
 {
-  "name": "askdata-layout-ui",
+  "name": "data-harness-layout-ui",
   "version": "0.1.0",
-  "description": "AskData brand skin for DeepSeek Harness: Data Agent brand occupants for the sidebar and conversation hero brand slots",
+  "description": "Data Harness brand skin for DeepSeek Harness: Data Harness brand occupants for the sidebar and conversation hero brand slots",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {

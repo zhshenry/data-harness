@@ -1,59 +1,75 @@
-# DeepSeek Harness
+# Data Harness
 
 English | [中文](README.zh.md)
 
-DeepSeek Harness (`dsh`) is an open-source agent harness developed by [DeepSeek AI](https://deepseek.com).
+Data Harness is built on [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). This repository is a fork of deepseek-harness, customized with the Data Harness brand skin.
 
-It uses an architecture where **everything is a plugin**, and is powered by [Cordis](https://github.com/cordiverse/cordis), whose design is described in [_A Programming Paradigm for Spatiotemporal Composability_](https://github.com/cordiverse/paper).
+## Customizations
 
-## Developer preview
+- **Data Harness brand skin** (`plugins/data-harness-layout-ui`): fills the native sidebar and conversation hero brand slots with the Data Harness database glyph and wordmark.
+- **Settings sections** (beta): Skills, Connectors, and Template library, each with a dedicated nav icon and a beta badge.
 
-DeepSeek Harness is currently in _developer preview_ and is iterating rapidly. **THERE WILL BE COMPATIBILITY-BREAKING CHANGES.**
+## Run from source
 
-## Run
+### Prerequisites
 
-### Run from `npm`
+- **Node.js** `^22.19.0 || >=24.0.0` (pinned via `engines`)
+- **pnpm** `11.7.0` (pinned via `packageManager`)
 
-Install `Node.js`, then run:
-
-```sh
-npx @deepseek-ai/dsh web
-```
-
-The command starts the Web UI at `http://127.0.0.1:3080` by default and opens it in the default browser for a local launch. An SSH launch only prints the host URL because the SSH client or editor owns the local forwarded address. Pass `--no-open` to run the server without opening a browser. See [Web UI guide](docs/user/guide/index.md).
-
-### Run from source
-
-To run from a repository checkout:
+### Install and build
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git
-cd deepseek-harness
+git clone git@github.com:zhshenry/data-harness.git
+cd data-harness
 pnpm install
 pnpm run build
-pnpm dsh web
 ```
 
-`pnpm run build` prepares the repository artifacts. `pnpm dsh web` uses those built artifacts without rebuilding.
+`pnpm run build` prepares the repository artifacts (built `lib/` bundles and the Web shell). `pnpm dsh web` serves those built artifacts without rebuilding.
 
-## Community and support
+### Start the Web GUI
 
-- Feel free to submit feedback or bug reports through [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions).
-- Add the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic to your plugin repository for discoverability.
-- Join <a href="https://discord.gg/Ycq5dCaS4">DeepSeek Harness Discord community</a>.
+The quick way on Windows PowerShell:
 
-## Contributing
+```powershell
+./dev.ps1
+```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+`dev.ps1` starts an isolated dev instance:
 
-## Development
+1. Sets `DSH_HOME` to the repo's `.dsh` directory for this process only (session data stays inside the repo and is never persisted globally — do not use `setx`).
+2. Runs `pnpm dsh web --port 3090`.
 
-Start with the [development guide](docs/development.md) and [architecture documentation](docs/architecture.md).
+Then open <http://127.0.0.1:3090>.
 
-For agents, follow [AGENTS.md](AGENTS.md).
+The same instance without the helper script:
+
+```sh
+# Windows PowerShell
+$env:DSH_HOME = ".dsh"; pnpm dsh web --port 3090
+
+# macOS / Linux
+DSH_HOME=.dsh pnpm dsh web --port 3090
+```
+
+### Edit the brand skin
+
+The brand skin lives at `plugins/data-harness-layout-ui/lib/client.js` (the committed built artifact). `dsh web` stat-polls that file and reloads the page on change, so edits show up after a refresh — no rebuild needed.
+
+## Branches
+
+| Branch | Role |
+|--------|------|
+| `master` | Production (default) |
+| `dev` | Development |
+| `dsh-upstream` | Upstream mirror |
+
+See [upstream sync](docs/upstream-sync.md) for the sync workflow.
+
+## Upstream
+
+This repository tracks [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness).
 
 ## License
 
-[MIT](LICENSE)
-
-Third-party dependencies and their licenses are disclosed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+[MIT](LICENSE), inherited from deepseek-harness.

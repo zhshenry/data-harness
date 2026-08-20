@@ -1,76 +1,75 @@
-# DeepSeek Harness
+# Data Harness
 
 [English](README.md) | 中文
 
-DeepSeek Harness（`dsh`）是由 [DeepSeek AI](https://deepseek.com) 开发的开源 agent harness（智能体框架）。
+Data Harness 是基于 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 构建的产品。本仓库是 deepseek-harness 的 fork，定制了 Data Harness 品牌皮肤。
 
-它采用**一切皆插件**的架构，并由 [Cordis](https://github.com/cordiverse/cordis) 驱动，其设计参见论文 [_A Programming Paradigm for Spatiotemporal Composability_](https://github.com/cordiverse/paper)。
+## 定制内容
 
-## 开发者预览
+- **Data Harness 品牌皮肤**（`plugins/data-harness-layout-ui`）：用 Data Harness 数据库图标和字样填充原生侧边栏与会话首屏的品牌槽位。
+- **设置栏目**（beta）：技能、连接器、模板库，各自配了专属导航图标和 beta 徽章。
 
-DeepSeek Harness 目前处于 _开发者预览_ 阶段，正在快速迭代。**未来将出现破坏兼容性的变更。**
+## 从源码运行
 
-## 运行
+### 环境要求
 
-### 通过 `npm` 运行
+- **Node.js** `^22.19.0 || >=24.0.0`（通过 `engines` 固定）
+- **pnpm** `11.7.0`（通过 `packageManager` 固定）
 
-安装 `Node.js`，然后运行：
-
-```sh
-npx @deepseek-ai/dsh web
-```
-
-该命令默认会在 `http://127.0.0.1:3080` 启动 Web UI，本机启动时还会用默认浏览器打开页面。通过 SSH 启动时只打印宿主机 URL，因为本地转发地址由 SSH 客户端或编辑器持有。传入 `--no-open` 可仅运行服务器而不打开浏览器。详见 [Web UI 指南](docs/user/guide/index.md)。
-
-### 从源码运行
-
-如需从仓库源码运行：
+### 安装与构建
 
 ```sh
-git clone https://github.com/deepseek-ai/deepseek-harness.git
-cd deepseek-harness
+git clone git@github.com:zhshenry/data-harness.git
+cd data-harness
 pnpm install
 pnpm run build
-pnpm dsh web
 ```
 
-`pnpm run build` 会准备仓库产物。`pnpm dsh web` 会直接使用这些已构建产物，不会重新构建。
+`pnpm run build` 会准备仓库产物（已构建的 `lib/` 包和 Web 前端壳）。`pnpm dsh web` 直接使用这些已构建产物，不会重新构建。
 
-## 社区与支持
+### 启动 Web 界面
 
-- 欢迎通过 [GitHub Discussions](https://github.com/deepseek-ai/deepseek-harness/discussions) 提交反馈或 bug 报告。
-- 为你的插件仓库添加 [`dsh-plugin`](https://github.com/topics/dsh-plugin) 话题，便于被发现。
-- 欢迎加入 DeepSeek Harness 企微群：扫码添加企微小助手并填写入群问卷，完成后小助手会邀请你入群。
+Windows PowerShell 下最省事：
 
-<table>
-  <thead>
-    <tr>
-      <th align="center">企微小助手</th>
-      <th align="center">入群问卷</th>
-      <th align="center">微信公众号</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://cdn.deepseek.com/harness/readme/community-wecom-assistant.png" alt="DeepSeek Harness 企微小助手二维码" width="180" height="180"></td>
-      <td align="center"><a href="https://trtgsjkv6r.feishu.cn/share/base/form/shrcnIt5twSVdLGD52KJBckGCgg"><img src="https://cdn.deepseek.com/harness/readme/community-wecom-survey.png" alt="DeepSeek Harness 入群问卷二维码" width="180" height="180"></a></td>
-      <td align="center"><img src="https://cdn.deepseek.com/harness/readme/community-wechat-official-account.png" alt="DeepSeek Harness 团队微信公众号二维码" width="180" height="180"></td>
-    </tr>
-  </tbody>
-</table>
+```powershell
+./dev.ps1
+```
 
-## 参与贡献
+`dev.ps1` 会启动一个隔离的开发实例：
 
-参见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+1. 仅对当前进程把 `DSH_HOME` 设为仓库内的 `.dsh` 目录（会话数据留在仓库内，不会写入全局；不要用 `setx` 持久化）。
+2. 执行 `pnpm dsh web --port 3090`。
 
-## 开发
+然后打开 <http://127.0.0.1:3090>。
 
-请先阅读[开发指南](docs/development.md)与[架构文档](docs/architecture.md)。
+不用辅助脚本的等价命令：
 
-面向 agent：请遵循 [AGENTS.md](AGENTS.md)。
+```sh
+# Windows PowerShell
+$env:DSH_HOME = ".dsh"; pnpm dsh web --port 3090
+
+# macOS / Linux
+DSH_HOME=.dsh pnpm dsh web --port 3090
+```
+
+### 修改品牌皮肤
+
+品牌皮肤位于 `plugins/data-harness-layout-ui/lib/client.js`（已提交的构建产物）。`dsh web` 会轮询该文件并在变更时刷新页面，所以修改后刷新浏览器即可生效，无需重新构建。
+
+## 分支结构
+
+| 分支 | 角色 |
+|------|------|
+| `master` | 生产（默认） |
+| `dev` | 开发 |
+| `dsh-upstream` | 上游镜像 |
+
+同步流程见 [上游同步](docs/upstream-sync.md)。
+
+## 上游
+
+本仓库跟踪 [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness)。
 
 ## 许可证
 
-[MIT](LICENSE)
-
-第三方依赖及其许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+[MIT](LICENSE)，继承自 deepseek-harness。

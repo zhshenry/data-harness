@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-	id: "askdata-layout-ui",
+	id: "data-harness-layout-ui",
 	factory: (require) => {
 		var module = { exports: {} };
 		var exports = module.exports;
@@ -7,7 +7,7 @@ window.__ModuleLoader__.load({
 		let react_jsx_runtime = require("react/jsx-runtime");
 		let { BrandWordmark } = require("@deepseek-ai/dsh-client-ui-primitives");
 		/**
-		 * AskData database brand glyph. Stroke reads `currentColor`, so the host
+		 * Data Harness database brand glyph. Stroke reads `currentColor`, so the host
 		 * surface's color and (in the conversation hero) hover motion still apply.
 		 * @param {{ size?: number, className?: string }} props - host-supplied mark presentation.
 		 * @returns the database mark.
@@ -58,7 +58,7 @@ window.__ModuleLoader__.load({
 			});
 		}
 		/**
-		 * AskData brand name. The shell's brand-name span is an inline-flex row
+		 * Data Harness brand name. The shell's brand-name span is an inline-flex row
 		 * (gap 6px, centered), so this occupant supplies the wordmark text plus a
 		 * trailing HARNESS badge. Text aligns to the official wordmark's heavier
 		 * baseline (20px/600, tighter tracking) rather than the shell's 18px/0.04em
@@ -100,6 +100,20 @@ window.__ModuleLoader__.load({
 		 * @param ctx - Client root context.
 		 */
 		function apply(ctx) {
+			ctx.effect(() => {
+				const style = document.createElement("style");
+				style.textContent = [
+					'[class*="headlineText"] { font-size: 0; }',
+					'[class*="headlineText"]::before { content: "Data Agent"; font-size: 26px; line-height: 32px; font-weight: 500; }',
+					'[class*="previewBadge"] { font-size: 0; }',
+					'[class*="previewBadge"]::before { content: "Harness"; font-size: 12px; line-height: 18px; font-weight: 700; font-family: var(--ds-font-family-code); position: relative; top: 1px; }',
+					'[class$="_headline"] svg { width: 26px; height: 26px; }',
+					'[class$="_fishHitbox"] { transform: translateY(-2px); }',
+					'[class$="_headline"]::after { content: "问数、图表、分析，一句话的事"; grid-column: 1 / -1; font-size: 16px; line-height: 22px; font-weight: 400; color: var(--dsw-alias-label-secondary); text-align: center; margin-top: 6px; }'
+				].join("\n");
+				document.head.appendChild(style);
+				return () => style.remove();
+			}, "data-harness-layout-ui: hero copy");
 			ctx.slots.inject("sidebar.brand.mark", () => ctx.slots.inject("sidebar.brand.name", () => ctx.slots.inject("conversation.hero.brand.mark", function* () {
 				yield ctx.slots.register({ name: "sidebar.brand.mark" }, DatabaseMark);
 				yield ctx.slots.register({ name: "sidebar.brand.name" }, DataAgentName);
