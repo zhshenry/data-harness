@@ -105,6 +105,7 @@ export function apply(ctx: ClientContext): void {
                 id: e.options.id ?? '',
                 order: e.options.order ?? 0,
                 label: resolveSlotLabel(e.options.label) ?? '',
+                beta: e.options.beta ?? false,
               }))
               .sort((a, b) => a.order - b.order)
           }
