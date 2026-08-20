@@ -1,10 +1,10 @@
-# AskData brand skin: fill the rc.8 sidebar + conversation hero brand slots.
+# Data Harness brand skin: fill the rc.8 sidebar + conversation hero brand slots.
 # The native `ui-sidebar` shell stays mounted (no disable); it declares
 # `sidebar.brand.mark` / `sidebar.brand.name` and supplies a fish fallback,
 # and ui-conversation declares `conversation.hero.brand.mark`. This plugin only
-# occupies those three slots with the AskData database glyph + "Data Agent"
+# occupies those three slots with the Data Harness database glyph + "Data Agent"
 # wordmark, so collapse animation, workspace browser, settings, and footer all
 # remain native.
 - insert:
-    - id: askdata-brand
-      name: askdata-layout-ui
+    - id: data-harness-brand
+      name: data-harness-layout-ui
