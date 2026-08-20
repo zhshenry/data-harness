@@ -870,3 +870,39 @@ export const IconArchiveOutline20 = ({ size = 20, className }: IconProps) => (
     <path d="M12.7962 12.5661V11.0832H7.20548V12.5661L12.7962 12.5661Z" fill="currentColor" />
   </svg>
 )
+
+/** wrench_outline_16 (skills nav glyph; hand-authored from a Lucide wrench
+ *  reference): open-end wrench, head upper-right, handle lower-left. */
+export const IconWrenchOutline16 = ({ size = 16, className }: IconProps) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M9.8 4.2a0.67 0.67 0 0 0 0 0.93l1.07 1.07a0.67 0.67 0 0 0 0.93 0l2.51-2.51a4 4 0 0 1-5.29 5.29l-4.61 4.61a1.41 1.41 0 0 1-2-2l4.61-4.61a4 4 0 0 1 5.29-5.29l-2.51 2.51z"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)
+
+/** plug_outline_16 (connectors nav glyph; hand-authored): two-prong power
+ *  plug — parallel prongs, flat-top D body, and a short cord. */
+export const IconPlugOutline16 = ({ size = 16, className }: IconProps) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6.5 6V2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    <path d="M9.5 6V2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    <path d="M5 6h6v3a3 3 0 0 1-6 0Z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M8 12v2.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+  </svg>
+)
+
+/** template_outline_16 (templates nav glyph; hand-authored): rounded frame
+ *  split by a left vertical and upper horizontal divider into an asymmetric
+ *  2x2 grid. */
+export const IconTemplateOutline16 = ({ size = 16, className }: IconProps) => (
+  <svg width={size} height={size} className={className} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" strokeWidth="1.3" />
+    <path d="M6 2v12" stroke="currentColor" strokeWidth="1.3" />
+    <path d="M2 6h12" stroke="currentColor" strokeWidth="1.3" />
+  </svg>
+)

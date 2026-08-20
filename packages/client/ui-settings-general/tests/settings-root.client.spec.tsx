@@ -7,7 +7,7 @@ import { SettingsRoot } from '../src/client/SettingsRoot.tsx'
 
 afterEach(cleanup)
 
-type Row = { id: string; order: number; label: string }
+type Row = { id: string; order: number; label: string; beta?: boolean }
 type Step = { id: string; order: number }
 
 /** Slot-content stand-ins: the shell renders whatever the seats contribute. */
@@ -162,6 +162,20 @@ describe('SettingsPanel close paths', () => {
 })
 
 describe('SettingsPanel navigation', () => {
+  it('renders a beta badge beside the label only for beta rows', () => {
+    mount({
+      rows: [
+        { id: 'general', order: 0, label: 'General' },
+        { id: 'models', order: 10, label: 'Models', beta: true },
+      ],
+    })
+    openPanel()
+    const models = screen.getByRole('button', { name: /Models/ })
+    expect(models.textContent).toContain('Beta')
+    const general = screen.getByRole('button', { name: /General/ })
+    expect(general.textContent).not.toContain('Beta')
+  })
+
   it('projects rows, marks the first active, and renders only that section', () => {
     mount()
     openPanel()

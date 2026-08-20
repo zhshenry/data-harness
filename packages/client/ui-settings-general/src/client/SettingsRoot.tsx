@@ -14,7 +14,8 @@ import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import clsx from 'clsx'
 import {
   IconAgentPresetOutline16, IconCloseOutline16, IconDataOutline16,
-  IconPersonalizationOutline16, IconSettingsOutline16,
+  IconPersonalizationOutline16, IconPlugOutline16, IconSettingsOutline16,
+  IconTemplateOutline16, IconWrenchOutline16,
 } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { SettingsRootComponentProps, SettingsSectionRow } from './shell-contract.ts'
 import css from './SettingsRoot.module.css'
@@ -24,6 +25,9 @@ function navIcon(id: string) {
   if (id === 'models') return <IconDataOutline16 className={css.navIcon} size={16} />
   if (id === 'agent-presets') return <IconAgentPresetOutline16 className={css.navIcon} size={16} />
   if (id === 'plugins') return <IconPersonalizationOutline16 className={css.navIcon} size={16} />
+  if (id === 'skills') return <IconWrenchOutline16 className={css.navIcon} size={16} />
+  if (id === 'connectors') return <IconPlugOutline16 className={css.navIcon} size={16} />
+  if (id === 'templates') return <IconTemplateOutline16 className={css.navIcon} size={16} />
   return <IconSettingsOutline16 className={css.navIcon} size={16} />
 }
 
@@ -74,7 +78,10 @@ function SettingsPanel({ rows, renderSlot, activeId, onSelect, onClose }: PanelP
                 onClick={() => { onSelect(row.id) }}
               >
                 {navIcon(row.id)}
-                <span className={css.navLabel}>{row.label}</span>
+                <span className={css.navLabel}>
+                  <span className={css.navLabelText}>{row.label}</span>
+                  {row.beta && <span className={css.betaBadge}>Beta</span>}
+                </span>
               </button>
             ))}
           </div>

@@ -18,6 +18,7 @@ export interface SettingsSectionRow {
   id: string
   order: number
   label: string
+  beta?: boolean
 }
 
 /** One ordered onboarding step projected from a slot registration. */
